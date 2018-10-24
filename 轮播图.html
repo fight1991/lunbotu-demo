@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+ol,ul {
+	list-style: none;
+}
+
+
+#box {
+	height: 300px;
+	width: 500px;
+	border: 1px solid red;
+	position: relative;
+}
+
+#box li {
+	width: 500px;
+	height: 300px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+
+}
+#box li:nth-child(1){
+background-color: pink;
+
+}
+#box li:nth-child(2){
+background-color: yellow;
+
+}
+#box li:nth-child(3){
+background-color: skyblue;
+
+}
+#box li:nth-child(4){
+background-color: gray;
+
+}
+#box li:nth-child(5){
+background-color: hotpink;
+
+}
+li.current {
+	display: block!important;
+}
+
+	</style>
+</head>
+<body>
+<button id="btn">点击更换图片</button>
+<div id="box">
+	<ul>
+		<li class="current">1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+</div>
+
+
+<script src="jquery-1.12.4.js"></script>
+<script>
+	
+
+	$(function(){
+		var count = 0;
+		var $li = $('#box li');
+		var timer;
+		//给按钮注册点击事件,点击切换图片
+      $('#btn').on('click',function(){
+        count++
+        if(count == $li.length){
+        	count = 0;
+        }
+        $li.eq(count).fadeIn().siblings().fadeOut()
+      })
+
+    //设置定时器,自动轮播
+     timer =  setInterval(function(){
+		$('#btn').click();
+	},1500)
+
+     //鼠标移入到box时,清除定时器
+
+      	$('#box').on('mouseenter',function(){
+		clearInterval(timer)
+	});
+
+      	//鼠标离开时 重新开启一个定时器
+      	$('#box').on('mouseleave',function(){
+      		timer =  setInterval(function(){
+		$('#btn').click();
+		},1500)
+      	})
+
+	})
+
+
+	
+</script>
+
+        
+ 	
+
+</body>
+</html>
